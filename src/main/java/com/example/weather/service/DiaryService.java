@@ -42,4 +42,10 @@ public class DiaryService {
             .collect(Collectors.toList());
     }
 
+    public void updateDiary(LocalDate date, String text) {
+        Diary nowDiary = diaryRepository.getFirstByDate(date);
+        nowDiary.updateText(text);
+        diaryRepository.save(nowDiary);
+    }
+
 }

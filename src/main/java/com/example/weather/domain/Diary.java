@@ -30,6 +30,10 @@ public class Diary {
     @Column(nullable = false)
     private LocalDate date;
 
+    public void updateText(String text) {
+        this.text = text;
+    }
+
     @Builder
     public Diary(String weather, String icon, double temperature, String text, LocalDate date) {
         this.weather = weather;
