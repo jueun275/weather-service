@@ -23,7 +23,7 @@ import java.util.Map;
 public class WeatherApiService {
 
     @Value("${openweatherapi.key}")
-    private String API_KEY = "c21cd888859cfe989dfe8c380a3b6fe4";
+    private String API_KEY;
 
     public Map<String, Object> getWeatherData() {
         String apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=seoul&appid=" + API_KEY;
