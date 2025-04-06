@@ -4,6 +4,7 @@ import com.example.weather.domain.Diary;
 import com.example.weather.dto.DiaryDto;
 import com.example.weather.openApi.WeatherApiService;
 import com.example.weather.repository.DiaryRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -47,5 +48,9 @@ public class DiaryService {
         nowDiary.updateText(text);
         diaryRepository.save(nowDiary);
     }
-
+    
+    @Transactional
+    public void deleteDiary(LocalDate date) {
+        diaryRepository.deleteAllByDate(date);
+    }
 }
