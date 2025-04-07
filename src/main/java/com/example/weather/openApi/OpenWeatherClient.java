@@ -20,13 +20,13 @@ import java.util.Map;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class WeatherApiService {
+public class OpenWeatherClient {
 
     @Value("${openweatherapi.key}")
     private String API_KEY;
 
-    public Map<String, Object> getWeatherData() {
-        String apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=seoul&appid=" + API_KEY;
+    public Map<String, Object> getWeatherData(String city) {
+        String apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + API_KEY;
 
         try {
             String response = fetchApiResponse(apiUrl);

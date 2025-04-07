@@ -42,4 +42,14 @@ public class Diary {
         this.text = text;
         this.date = date;
     }
+
+    public static Diary formDateWeather(DateWeather dateWeather, String text) {
+        return Diary.builder()
+            .weather(dateWeather.getWeather())
+            .icon(dateWeather.getIcon())
+            .temperature(dateWeather.getTemperature())
+            .date(dateWeather.getDate())
+            .text(text)
+            .build();
+    }
 }
