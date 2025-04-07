@@ -1,5 +1,6 @@
 package com.example.weather.openApi;
 
+import com.example.weather.domain.DateWeather;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONArray;
@@ -14,6 +15,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.time.Instant;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,15 +28,26 @@ public class OpenWeatherClient {
     @Value("${openweatherapi.key}")
     private String API_KEY;
 
-    public Map<String, Object> getWeatherData(String city) {
+    public DateWeather getWeatherFromApi(String city) {
+        Map<String, Object> parsedWeather = getWeatherData(city);
+
+        return DateWeather.builder()
+            .date(LocalDate.now())
+            .weather(parsedWeather.get("main").toString())
+            .icon(parsedWeather.get("icon").toString())
+            .temperature((Double) parsedWeather.get("temp"))
+            .build();
+    }
+
+    private  Map<String, Object> getWeatherData(String city) {
         String apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + API_KEY;
 
         try {
             String response = fetchApiResponse(apiUrl);
             return parseWeather(response);
         } catch (Exception e) {
-            log.error("", e);
-            return new HashMap<>(); // Return empty map in case of failure
+            log.error("문제가 발생했습니다", e);
+            return new HashMap<>();
         }
     }
 
