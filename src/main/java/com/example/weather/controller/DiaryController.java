@@ -17,7 +17,7 @@ public class DiaryController {
     @PostMapping("/create/diary")
     public void createDiary(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
                             @RequestBody String text) {
-        diaryService.createDiary(date, text);
+        diaryService.createDiary(date, text, "seoul");
     }
 
     @GetMapping("/read/diary")
